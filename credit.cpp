@@ -58,7 +58,6 @@ int main(void)
         count_digit++;
     }
     // Get the odd digits
-    long long int starting_digits = reverse;
     while (credit_number != 0)
     {
         digit = credit_number % 100;
@@ -66,6 +65,7 @@ int main(void)
         credit_number /= 100;
         sum_digit += digit;
     }
+    long long int starting_digits = reverse;
     // Check if card valid or not
     if (sum_digit % 10 == 0)
     {
