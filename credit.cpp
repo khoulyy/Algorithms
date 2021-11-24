@@ -12,7 +12,7 @@ int main(void)
     int multi = 0;
     int right_digit;
     int left_digit;
-    long long int remove = 0;
+    long long int rmv = 0;
     long long int reverse = 0;
 
     // Get input
@@ -52,8 +52,8 @@ int main(void)
     // Reverse the number
     while (odd_credit_number != 0)
     {
-        remove = odd_credit_number % 10;
-        reverse = reverse * 10 + remove;
+        rmv = odd_credit_number % 10;
+        reverse = reverse * 10 + rmv;
         odd_credit_number  /= 10;
         count_digit++;
     }
