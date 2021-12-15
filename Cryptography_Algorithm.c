@@ -7,7 +7,7 @@
 
 int main(int argc, string argv[])
 {
-    // Handles if arguments more than 2
+    // Handles if arguments not equal to 2
     if (argc != 2)
     {
         printf("Usage: ./caesar key\n");
