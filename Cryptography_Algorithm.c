@@ -1,68 +1,86 @@
-#include <stdio.h>
 #include <cs50.h>
-#include <math.h>
-#include <ctype.h> // To use islower() and isupper() functions
-#include <string.h> // To use Get_string() function
-#include <stdlib.h> // To use atoi() function for converting string to integer
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+bool only_digits(string key);
+char rotate(char character, int key);
 
 int main(int argc, string argv[])
 {
-    // Handles if arguments not equal to 2
+    // if the program runs with a single command-line before add functionality
     if (argc != 2)
     {
-        printf("Usage: ./caesar key\n");
+        // exit
+        printf("Usage: ./casear key\n");
         return 1;
     }
 
-    int argv1_length = strlen(argv[1]);
-
-    // Handles if arguments not numeric
-    for (int i = 0; i < argv1_length; i++)
+    // check if the key is digits only
+    for (int i = 0; i < strlen(argv[1]); i++)
     {
         if (isalpha(argv[1][i]))
         {
-            printf("Usage: ./caesar key\n");
+            printf("Usage: ./casear key\n");
             return 1;
         }
     }
+
+    // convert the argument from string to int
     int arg = atoi(argv[1]);
 
-    string plaintext = get_string("Plaintext: ");
+    // taking plaintext as input
+    string plain_text = get_string("Plaintext:  ");
+    char cipher_text = 0;
 
-    printf("Ciphertext: ");
-
-    // Cipher the plaintext
-    int n = strlen(plaintext);
-    for (int j = 0; j < n; j++)
+    // print output
+    printf("ciphertext: ");
+    for (int i = 0; i < strlen(plain_text); i++)
     {
-        char ciphertext = 0;
-        if (isalpha(plaintext[j]))
+        cipher_text = rotate(plain_text[i], arg);
+        printf("%c", cipher_text);
+    }
+    // new line
+    printf("\n");
+
+    return 0;
+}
+
+bool only_digits(string key)
+{
+    for (int i = 0; i < strlen(key); i++)
+    {
+        if (isdigit(key[i]))
         {
-            if (isupper(plaintext[j]))
-            {
-                // Formula c = (p + k) % 26
-                ciphertext = (((plaintext[j] - 'A') + arg) % 26) + 'A';
-                // Print with upper case
-                printf("%c", ciphertext);
-            }
-            else if (islower(plaintext[j]))
-            {
-                // Formula c = (p + k) % 26
-                ciphertext = (((plaintext[j] - 'a') + arg) % 26) + 'a';
-                // Print with lower case
-                printf("%c", ciphertext);
-            }
-            else
-            {
-                // Do nothing (nothing to change)
-                printf("%c", plaintext[j]);
-            }
+            return true;
+        }
+    }
+    return false;
+}
+
+// a function takes (character & key) and rotate that character by that key
+char rotate(char character, int key)
+{
+    int cipher_char;
+    // formula: ci = (pi + k) % 26
+    if (isalpha(character))
+    {
+        if (isupper(character))
+        {
+            // ci = (pi + k) % 26
+            cipher_char = ((character + key) - 'A') % 26 + 'A';
+            return cipher_char;
+        }
+        else if (islower(character))
+        {
+            cipher_char = ((character + key) - 'a') % 26 + 'a';
+            return cipher_char;
         }
         else
         {
-            // Do nothing (nothing to change)
-            printf("%c", plaintext[j]);
+            return character;
         }
     }
-    printf("\n");
+    return character;
 }
